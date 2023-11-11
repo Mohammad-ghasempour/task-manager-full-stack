@@ -1,12 +1,4 @@
-import express from "express";
-
-import Task from "./task.js";
-
-const route = express.Router();
-
-route.get("/", (req, res) => {
-   const tasks = Task.getAllTasks();
-   res.send(`<!DOCTYPE html>
+<!DOCTYPE html>
     <html lang="en">
        <head>
           <meta charset="UTF-8" />
@@ -36,7 +28,18 @@ route.get("/", (req, res) => {
                 <h1 class="taskHeader"> Tasks </h1>
                 <div class="contentContainer">
                    <ul class="list-group">
-                   ${tasks
+                    <li>
+                        <span>
+                            <label>This is a task title</label>
+                            <span class="bg-success">completed</span>
+                        </span>
+                        <button class="btn-secondary">Toggle</button>
+                        <button class="btn-primary">Edit</button>
+                        <button class="btn-danger">Delete</button>
+                    </li>
+
+
+                   <!-- ${tasks
                       .map((item) => {
                          return `  <li data-taskId=${item.id}>
                     <span>
@@ -52,7 +55,7 @@ route.get("/", (req, res) => {
                     <button class="btn-danger delete-btn">Delete</button>
                 </li>`;
                       })
-                      .join("")}
+                      .join("")} -->
                                     
                    </ul>
                 </div>
@@ -62,8 +65,3 @@ route.get("/", (req, res) => {
        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
        <script src="js/script.js"></script>
     </html>
-    
-    `);
-});
-
-export default route;
