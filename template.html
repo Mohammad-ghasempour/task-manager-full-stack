@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="stylesheet" href="./public/css/style.css">
+      <title>Task manager</title>
+   </head>
+   <body>
+      <div class="container">
+         <div class="inputForm">
+            <h1>There will be the title</h1>
+            <form action="insertData" method="post">
+               <div>
+
+                  <input type="text" name="title" placeholder="Enter a new title">
+                  <button type="submit">Add new task</button>
+               </div>
+               <div>
+                  <input type="checkbox"
+                  name="completed"
+                  id="my-checkbox"
+                  />
+                  <label for="my-checkbox">The task is completed.</label>
+               </div>
+            </form>
+         </div>
+         <div class="bottom">
+            <div class="contentContainer">
+               <ul>
+                <li>
+                    <span>
+                        <label>This is a task title</label>
+                        <span class="bg-success">completed</span>
+                    </span>
+                    <button class="btn-secondary">Toggle</button>
+                    <button class="btn-primary">Edit</button>
+                    <button class="btn-danger">Delete</button>
+                </li>
+              
+               </ul>
+            </div>
+         </div>
+      </div>
+   </body>
+</html>
