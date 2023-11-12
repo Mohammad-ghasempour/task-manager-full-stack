@@ -4,7 +4,7 @@ import DB from "../models/db.js";
 
 
 export default class PostController{
-    static insertData(req, res){
+    static addData(req, res){
         if (req.body.title) {
            const title = req.body.title;
            const completed = req.body.completed ? true : false;
@@ -70,6 +70,4 @@ export default class PostController{
            res.status(400).send("<h1>Invalid request!</h1>");
         }
      }
-
-
 }

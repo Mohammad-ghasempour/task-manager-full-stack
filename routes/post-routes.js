@@ -1,14 +1,10 @@
 import express, { urlencoded } from "express";
 
-
-
-import Task from "../models/task.js";
-import DB from "../models/db.js";
 import PostController from "../controllers/post-controller.js";
 
 const route = express.Router();
 
-route.post("/insertData", PostController.insertData );
+route.post("/addData", PostController.addData);
 
 route.post("/toggle-task", PostController.toggleTask);
 
