@@ -1,0 +1,9 @@
+<li data-taskId=<%= task.id %>>
+    <span>
+       <label><%= task.title %></label>
+       <span class= <%= task.completed ? "bg-success" : "bg-secondary" %>><%= task.completed ? "Completed" : "In progress" %></span>
+    </span>
+    <button class="btn-secondary toggle-btn">Toggle</button>
+    <button class="btn-primary edit-btn">Edit</button>
+    <button class="btn-danger delete-btn">Delete</button>
+ </li>

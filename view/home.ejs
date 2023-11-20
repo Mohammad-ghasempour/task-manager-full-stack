@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="stylesheet" href="css/style.css" />
+      <title>Task manager</title>
+   </head>
+   <body>
+      <div class="container">
+         <div class="inputForm">
+            <h1>Task manager (To-Do list)</h1>
+            <form action="addData" method="post">
+               <div>
+                  <input
+                     type="text"
+                     name="title"
+                     placeholder="Enter a new title"
+                  />
+                  <button type="submit">Add new task</button>
+               </div>
+               <div>
+                  <input type="checkbox" name="completed" id="my-checkbox" />
+                  <label for="my-checkbox">The task is completed.</label>
+               </div>
+            </form>
+         </div>
+         <div class="taskslist">
+            <h1 class="taskHeader">Tasks</h1>
+            <div class="contentContainer">
+               <ul class="list-group">
+                  <% for(task of tasks){ %>
+                     <%- include('tasks' , {task}) %>
+                  <% } %>
+               </ul>
+            </div>
+         </div>
+      </div>
+   </body>
+   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+   <script src="js/script.js"></script>
+</html>

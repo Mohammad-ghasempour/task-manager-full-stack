@@ -31,12 +31,7 @@
     },
     {
         "id": 8,
-        "title": "Learn graphQl",
-        "completed": false
-    },
-    {
-        "id": 9,
-        "title": "new study",
+        "title": "Learn graphQL",
         "completed": false
     }
 ]
