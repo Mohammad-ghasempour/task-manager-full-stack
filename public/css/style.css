@@ -75,3 +75,6 @@ li span label {
     padding: 0px 5px;
     border-radius: 5px;
 }
+.d-hide{
+    display: none;
+}

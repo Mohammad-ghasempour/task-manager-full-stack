@@ -14,8 +14,8 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
-app.set("view engine", "ejs");
-app.set("views", path.join(__dirname, "view"));
+// app.set("view engine", "ejs");
+// app.set("views", path.join(__dirname, "view"));
 
 app.use(getRoute);
 app.use(postRoute);

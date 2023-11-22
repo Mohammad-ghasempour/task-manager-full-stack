@@ -28,15 +28,10 @@
          <div class="taskslist">
             <h1 class="taskHeader">Tasks</h1>
             <div class="contentContainer">
-               <% if (tasks.length != 0){ %>
-               <ul class="list-group">
-                  <% for(task of tasks){ %> <%- include('tasks' , {task}) %> <%
-                  } %>
+               <ul class="list-group d-hide">
+                  
                </ul>
-
-               <% } else{ %>
-               <h1>There are no tasks!</h1>
-               <% } %>
+               <h2 class="d-hide">There are no tasks!</h2>
             </div>
          </div>
       </div>

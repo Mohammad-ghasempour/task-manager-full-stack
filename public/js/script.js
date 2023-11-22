@@ -1,4 +1,5 @@
 const list = document.querySelector(".list-group");
+const emptyTaskMessage = document.querySelector("h2");
 list.addEventListener("click", async (event) => {
    const target = event.target;
    const id = target.parentElement.dataset.taskid;
@@ -71,5 +72,37 @@ list.addEventListener("click", async (event) => {
             alert(err.response.data);
          }
       }
+   }
+});
+
+document.addEventListener("DOMContentLoaded", async () => {
+   try {
+      const { data } = await axios.get("/get-all-tasks");
+      if (data instanceof Array) {
+         if (data.length) {
+            list.classList.remove("d-hide");
+            let liItems = "";
+            for (let task of data) {
+               liItems += `
+            <li data-taskId='${task.id}'>
+    <span>
+       <label>${task.title}</label>
+       <span class= ${task.completed ? "bg-success" : "bg-secondary"} > ${
+                  task.completed ? "Completed" : "In progress"
+               } </span>
+    </span>
+    <button class="btn-secondary toggle-btn">Toggle</button>
+    <button class="btn-primary edit-btn">Edit</button>
+    <button class="btn-danger delete-btn">Delete</button>
+ </li>
+ `;
+               list.innerHTML = liItems;
+            }
+         } else {
+            emptyTaskMessage.classList.remove("d-hide");
+         }
+      }
+   } catch (err) {
+      console.log(err.message);
    }
 });

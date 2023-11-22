@@ -2,7 +2,7 @@
     {
         "id": 1,
         "title": "Learn Express.js",
-        "completed": false
+        "completed": true
     },
     {
         "id": 2,
