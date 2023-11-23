@@ -1,5 +1,11 @@
 const list = document.querySelector(".list-group");
 const emptyTaskMessage = document.querySelector("h2");
+const addButton = document.getElementById('addButton');
+const input = document.getElementById('myInput');
+const checkbox = document.getElementById('my-checkbox');
+
+
+
 list.addEventListener("click", async (event) => {
    const target = event.target;
    const id = target.parentElement.dataset.taskid;
@@ -81,9 +87,9 @@ document.addEventListener("DOMContentLoaded", async () => {
       if (data instanceof Array) {
          if (data.length) {
             list.classList.remove("d-hide");
-            let liItems = "";
+            let listItem = "";
             for (let task of data) {
-               liItems += `
+               listItem += `
             <li data-taskId='${task.id}'>
     <span>
        <label>${task.title}</label>
@@ -96,7 +102,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     <button class="btn-danger delete-btn">Delete</button>
  </li>
  `;
-               list.innerHTML = liItems;
+               list.innerHTML = listItem;
             }
          } else {
             emptyTaskMessage.classList.remove("d-hide");
@@ -106,3 +112,75 @@ document.addEventListener("DOMContentLoaded", async () => {
       console.log(err.message);
    }
 });
+
+///////////////
+
+ addButton.addEventListener('click', addTask);
+ input.addEventListener('keydown',(event)=>{
+    if (event.key === 'Enter'){
+      event.preventDefault()
+      addTask();
+   }
+ })
+
+ 
+async function  addTask(){
+
+     const title = input.value;
+     const completed = checkbox.checked;
+     if (title.length <3){
+      alert('Please enter at least 3 character as your task title.')
+      return;
+     }
+     
+     try {
+      const {data} = await axios.post("/addData", {title, completed});
+      console.log(data)
+      if (data>0) {
+         emptyTaskMessage.classList.add('d-hide');
+
+         const newNode = document.createElement('li');
+         newNode.setAttribute("data-taskId",data)
+         newNode.innerHTML = `<span>
+         <label>${title}</label>
+         <span class= ${completed ? "bg-success" : "bg-secondary"} > ${
+                    completed ? "Completed" : "In progress"
+                 } </span>
+      </span>
+      <button class="btn-secondary toggle-btn">Toggle</button>
+      <button class="btn-primary edit-btn">Edit</button>
+      <button class="btn-danger delete-btn">Delete</button>`
+
+      
+       
+      
+      
+//       const newItem = `
+//          <li data-taskId='${data}'>
+//  <span>
+//     <label>${title}</label>
+//     <span class= ${completed ? "bg-success" : "bg-secondary"} > ${
+//                completed ? "Completed" : "In progress"
+//             } </span>
+//  </span>
+//  <button class="btn-secondary toggle-btn">Toggle</button>
+//  <button class="btn-primary edit-btn">Edit</button>
+//  <button class="btn-danger delete-btn">Delete</button>
+// </li>
+// `
+
+
+list.appendChild(newNode);
+input.value=''
+
+      } else {
+         alert(data);
+      }
+   } catch (err) {
+      alert(err.message);
+   }
+
+}
+
+
+ 

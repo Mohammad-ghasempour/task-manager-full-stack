@@ -10,14 +10,15 @@
       <div class="container">
          <div class="inputForm">
             <h1>Task manager (To-Do list)</h1>
-            <form action="addData" method="post">
+            <form class="form">
                <div>
                   <input
                      type="text"
+                     id="myInput"
                      name="title"
                      placeholder="Enter a new title"
                   />
-                  <button type="submit">Add new task</button>
+                  <button type="button" id="addButton">Add new task</button>
                </div>
                <div>
                   <input type="checkbox" name="completed" id="my-checkbox" />
