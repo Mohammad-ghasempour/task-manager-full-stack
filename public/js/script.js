@@ -77,6 +77,10 @@ list.addEventListener("click", async (event) => {
          } catch (err) {
             alert(err.response.data);
          }
+         if (list.innerHTML.trim() == ""){
+         emptyTaskMessage.classList.remove("d-hide");
+
+         }
       }
    }
 });
@@ -138,6 +142,9 @@ async function  addTask(){
       console.log(data)
       if (data>0) {
          emptyTaskMessage.classList.add('d-hide');
+         // newly added
+         list.classList.remove("d-hide");
+
       
       const newItem = `
          <li data-taskId='${data}'>
