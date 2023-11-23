@@ -138,39 +138,21 @@ async function  addTask(){
       console.log(data)
       if (data>0) {
          emptyTaskMessage.classList.add('d-hide');
-
-         const newNode = document.createElement('li');
-         newNode.setAttribute("data-taskId",data)
-         newNode.innerHTML = `<span>
-         <label>${title}</label>
-         <span class= ${completed ? "bg-success" : "bg-secondary"} > ${
-                    completed ? "Completed" : "In progress"
-                 } </span>
-      </span>
-      <button class="btn-secondary toggle-btn">Toggle</button>
-      <button class="btn-primary edit-btn">Edit</button>
-      <button class="btn-danger delete-btn">Delete</button>`
-
       
-       
-      
-      
-//       const newItem = `
-//          <li data-taskId='${data}'>
-//  <span>
-//     <label>${title}</label>
-//     <span class= ${completed ? "bg-success" : "bg-secondary"} > ${
-//                completed ? "Completed" : "In progress"
-//             } </span>
-//  </span>
-//  <button class="btn-secondary toggle-btn">Toggle</button>
-//  <button class="btn-primary edit-btn">Edit</button>
-//  <button class="btn-danger delete-btn">Delete</button>
-// </li>
-// `
-
-
-list.appendChild(newNode);
+      const newItem = `
+         <li data-taskId='${data}'>
+ <span>
+    <label>${title}</label>
+    <span class= ${completed ? "bg-success" : "bg-secondary"} > ${
+               completed ? "Completed" : "In progress"
+            } </span>
+ </span>
+ <button class="btn-secondary toggle-btn">Toggle</button>
+ <button class="btn-primary edit-btn">Edit</button>
+ <button class="btn-danger delete-btn">Delete</button>
+</li>
+`
+list.innerHTML += newItem
 input.value=''
 
       } else {
