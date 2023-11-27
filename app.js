@@ -6,6 +6,7 @@ import express from "express";
 
 import getRoute from "./routes/get-routes.js";
 import postRoute from "./routes/post-routes.js";
+import taskRoutes from "./routes/task.js"
 
 const app = express();
 
@@ -17,6 +18,7 @@ app.use(express.json());
 // app.set("view engine", "ejs");
 // app.set("views", path.join(__dirname, "view"));
 
+app.use(taskRoutes);
 app.use(getRoute);
 app.use(postRoute);
 app.listen(3000);

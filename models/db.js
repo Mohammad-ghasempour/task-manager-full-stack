@@ -1,12 +1,12 @@
-   import fs from "fs";
+import fs from "fs";
 
-   import chalk from "chalk";
+import chalk from "chalk";
 
-   const filename = process.env.DB_FILE;
-   const warn = chalk.yellowBright.bold;
-   const success = chalk.greenBright.bold;
+const filename = process.env.DB_FILE;
+const warn = chalk.yellowBright.bold;
+const success = chalk.greenBright.bold;
 
-   export default class DB {
+export default class DB {
    static createDB() {
       if (fs.existsSync(filename)) {
          console.log(warn("The file is already exist!"));
@@ -217,6 +217,8 @@
                } catch (error) {
                   throw new Error("Can not write into the file!");
                }
+            } else{
+               return false;
             }
          }
          throw new Error("Id can not be found!");
@@ -224,4 +226,4 @@
          throw new Error("Id must be positive integer"); //
       }
    }
-   }
+}

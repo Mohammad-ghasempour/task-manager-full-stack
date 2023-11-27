@@ -7,7 +7,6 @@ export default class PostController {
          const title = req.body.title;
          const completed = req.body.completed ? true : false;
          try {
-            const task = new Task(title, completed);
             task.save();
             res.json(task.id);
          } catch (err) {
@@ -17,7 +16,7 @@ export default class PostController {
          res.status(400).json("Invalid request. You should send something!");
       }
    }
-   static toggleTask(req, res) {
+      static toggleTask(req, res) {
       if (req.body.id) {
          const task = Task.getTaskById(req.body.id);
          if (task) {
@@ -31,6 +30,10 @@ export default class PostController {
          res.status(400).send("<h1>Invalid request!</h1>");
       }
    }
+      
+   
+   
+   
    static editTask(req, res) {
       if (req.body.id && req.body.title) {
          const task = Task.getTaskById(req.body.id);
@@ -51,7 +54,11 @@ export default class PostController {
          );
       }
    }
-   static deleteTask(req, res) {
+
+
+
+   
+      static deleteTask(req, res) {
       if (req.body.id) {
          try {
             if (DB.deleteTask(req.body.id)) {

@@ -117,8 +117,6 @@ document.addEventListener("DOMContentLoaded", async () => {
    }
 });
 
-///////////////
-
  addButton.addEventListener('click', addTask);
  input.addEventListener('keydown',(event)=>{
     if (event.key === 'Enter'){
@@ -139,10 +137,8 @@ async function  addTask(){
      
      try {
       const {data} = await axios.post("/addData", {title, completed});
-      console.log(data)
       if (data>0) {
          emptyTaskMessage.classList.add('d-hide');
-         // newly added
          list.classList.remove("d-hide");
 
       
