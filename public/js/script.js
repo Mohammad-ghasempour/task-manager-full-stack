@@ -80,14 +80,14 @@ list.addEventListener("click", async (event) => {
       const areYouSureQuestion = `Are you sure to delete ${currentTitle} from the list?`;
       if (confirm(areYouSureQuestion)) {
          try {
-            const response = await axios.post("/delete-task", { id });
-            if (response.data === true) {
+            const {data} = await axios.delete("/tasks/" + id);
+            if (data.success) {
                target.parentElement.remove();
             } else {
-               alert(response.data);
+               alert(data.message);
             }
          } catch (err) {
-            alert(err.response.data);
+            alert(err.response.data.message);
          }
          if (list.innerHTML.trim() == "") {
             emptyTaskMessage.classList.remove("d-hide");

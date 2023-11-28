@@ -217,8 +217,6 @@ export default class DB {
                } catch (error) {
                   throw new Error("Can not write into the file!");
                }
-            } else{
-               return false;
             }
          }
          throw new Error("Id can not be found!");
