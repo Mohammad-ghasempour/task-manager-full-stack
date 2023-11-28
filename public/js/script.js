@@ -45,25 +45,30 @@ list.addEventListener("click", async (event) => {
    } else if (target.classList.contains("edit-btn")) {
       const currentTitle =
          target.parentElement.querySelector("label").textContent;
-      const answer = prompt("Please enter new task's title", currentTitle);
-      if (answer && answer != currentTitle && answer.length >= 3) {
+      const completed =
+         target.parentElement.querySelector("span").lastElementChild
+            .innerHTML === "Completed"
+            ? true
+            : false;
+      const newTitle = prompt("Please enter new task's title", currentTitle);
+      if (newTitle && newTitle != currentTitle && newTitle.length >= 3) {
          try {
-            const response = await axios.post("/edit-task", {
-               id,
-               title: answer,
+            const {data} = await axios.put("/tasks/" + id, {
+               title: newTitle,
+               completed,
             });
-            if (response.data === true) {
-               target.parentElement.querySelector("label").innerHTML = answer;
+            if (data.success) {
+               target.parentElement.querySelector("label").innerHTML = newTitle;
             } else {
-               alert(response.data);
+               alert(data.response.data.message);
             }
          } catch (err) {
-            alert(err.response.data);
+            alert(err.response.data.message);
          }
-      } else if (answer) {
-         if (answer.length < 3) {
+      } else if (newTitle) {
+         if (newTitle.length < 3) {
             alert("Title should be more than 3 characters.");
-         } else if (answer === currentTitle) {
+         } else if (newTitle === currentTitle) {
             alert("Title is the same as before.");
          } else {
             alert("something went wrong! ");

@@ -1,10 +1,5 @@
 [
     {
-        "id": 1,
-        "title": "Modfdf",
-        "completed": false
-    },
-    {
         "id": 2,
         "title": "Learn CSS",
         "completed": false
@@ -31,7 +26,7 @@
     },
     {
         "id": 8,
-        "title": "dddddddffff",
+        "title": "Learn HTML5",
         "completed": false
     }
 ]

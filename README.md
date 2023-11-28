@@ -12,4 +12,5 @@ Please feel free to contact me by email at: M.gh84nor[at]gmail.com
 - HTML5 , CSS3
 - Node.js
 - MVC (Model View Controller)
-- Template Engines
+- Template Engines (temporary used)
+- RESTful API
