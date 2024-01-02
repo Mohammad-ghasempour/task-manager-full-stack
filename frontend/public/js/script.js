@@ -4,6 +4,44 @@ const addButton = document.getElementById("addButton");
 const input = document.getElementById("myInput");
 const checkbox = document.getElementById("my-checkbox");
 
+axios.defaults.baseURL = 'http://localhost:3000'
+
+document.addEventListener("DOMContentLoaded", async () => {
+   try {
+      const { data } = await axios.get("/tasks");
+      console.log(data)
+
+      if (data.success) {
+         if (data.body.length) {
+            list.classList.remove("d-hide");
+            let listItem = "";
+            for (let task of data.body) {
+               listItem += `
+                     <li data-taskId='${task.id}'>
+            <span>
+               <label>${task.title}</label>
+               <span class= ${task.completed ? "bg-success" : "bg-secondary"}>${
+                  task.completed ? "Completed" : "In progress"
+               }</span>
+            </span>
+            <button class="btn-secondary toggle-btn">Toggle</button>
+            <button class="btn-primary edit-btn">Edit</button>
+            <button class="btn-danger delete-btn">Delete</button>
+            </li>
+               `;
+               list.innerHTML = listItem;
+            }
+         } else {
+            emptyTaskMessage.classList.remove("d-hide");
+         }
+      } else {
+         alert(data.message);
+      }
+   } catch (err) {
+      console.log(err.response.data.message);
+   }
+});
+
 list.addEventListener("click", async (event) => {
    const target = event.target;
    const id = target.parentElement.dataset.taskid;
@@ -93,40 +131,6 @@ list.addEventListener("click", async (event) => {
             emptyTaskMessage.classList.remove("d-hide");
          }
       }
-   }
-});
-
-document.addEventListener("DOMContentLoaded", async () => {
-   try {
-      const { data } = await axios.get("/tasks");
-      if (data.success) {
-         if (data.body.length) {
-            list.classList.remove("d-hide");
-            let listItem = "";
-            for (let task of data.body) {
-               listItem += `
-                     <li data-taskId='${task.id}'>
-            <span>
-               <label>${task.title}</label>
-               <span class= ${task.completed ? "bg-success" : "bg-secondary"}>${
-                  task.completed ? "Completed" : "In progress"
-               }</span>
-            </span>
-            <button class="btn-secondary toggle-btn">Toggle</button>
-            <button class="btn-primary edit-btn">Edit</button>
-            <button class="btn-danger delete-btn">Delete</button>
-            </li>
-               `;
-               list.innerHTML = listItem;
-            }
-         } else {
-            emptyTaskMessage.classList.remove("d-hide");
-         }
-      } else {
-         alert(data.message);
-      }
-   } catch (err) {
-      console.log(err.response.data.message);
    }
 });
 

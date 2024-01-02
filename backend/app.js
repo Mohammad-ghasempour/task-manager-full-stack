@@ -6,7 +6,7 @@ import express from "express";
 
 import getRoute from "./routes/get-routes.js";
 import postRoute from "./routes/post-routes.js";
-import taskRoutes from "./routes/task.js"
+import taskRoutes from "./routes/task.js";
 
 const app = express();
 
@@ -18,9 +18,16 @@ app.use(express.json());
 // app.set("view engine", "ejs");
 // app.set("views", path.join(__dirname, "view"));
 
+app.use((req, res, next) => {
+   res.setHeader("Access-Control-Allow-Origin", "*");
+   res.setHeader("Access-Control-Allow-Headers", "*");
+   res.setHeader("Access-Control-Allow-Methods", "*");
+   next();
+});
+
 app.use(taskRoutes);
-app.use(getRoute);
-app.use(postRoute);
+//app.use(getRoute);
+//app.use(postRoute);
 app.listen(3000);
 
 export { __dirname as rootPath };

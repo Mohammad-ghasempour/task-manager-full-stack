@@ -206,7 +206,6 @@ export default class DB {
             throw new Error("Can not read the file!");
          }
 
-         // check if the id is exit in the list
          for (let i = 0; i < data.length; i++) {
             if (data[i].id === id) {
                data.splice(i, 1);
@@ -221,7 +220,7 @@ export default class DB {
          }
          throw new Error("Id can not be found!");
       } else {
-         throw new Error("Id must be positive integer"); //
+         throw new Error("Id must be positive integer");
       }
    }
 }
