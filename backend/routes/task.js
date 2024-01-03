@@ -4,7 +4,7 @@ import Task from "../models/task.js";
 
 const route = express.Router();
 
-route.get("/tasks", TaskController.getAllTasks);
+route.get("/tasks", TaskController.getTasks);
 route.get("/task/:id", TaskController.getTaskById);
 route.post("/tasks", TaskController.addTask);
 route.put("/tasks/:id", TaskController.updateTask);
