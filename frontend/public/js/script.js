@@ -58,8 +58,8 @@ async function loadTasks() {
             pagination.classList.remove("d-hide");
             totalPages = Math.ceil(totalTasks / limit);
             prevButton.disabled = nextButton.disabled = false;
-            prevButton.style.cursor = nextButton.style.cursor = "auto"
-            
+            prevButton.style.cursor = nextButton.style.cursor = "auto";
+
             if (currentPage === 1) {
                prevButton.disabled = true;
                prevButton.style.cursor = "not-allowed";
@@ -85,6 +85,22 @@ nextButton.addEventListener("click", () => {
 });
 prevButton.addEventListener("click", () => {
    currentPage--;
+   loadTasks();
+});
+
+allRadio.addEventListener("change", () => {
+   finished = undefined;
+   currentPage = 1;
+   loadTasks();
+});
+completedRadio.addEventListener("change", () => {
+   finished = true;
+   currentPage = 1;
+   loadTasks();
+});
+inprogressRadio.addEventListener("change", () => {
+   finished = false;
+   currentPage = 1;
    loadTasks();
 });
 
@@ -199,23 +215,29 @@ async function addTask() {
    try {
       const { data } = await axios.post("/tasks", { title, completed });
       if (data.success) {
-         emptyTaskMessage.classList.add("d-hide");
-         list.classList.remove("d-hide");
+         // emptyTaskMessage.classList.add("d-hide");
+         // list.classList.remove("d-hide");
 
-         const newItem = `
-                        <li data-taskId='${data.body.id}'>
-               <span>
-                  <label>${title}</label>
-                  <span class= ${completed ? "bg-success" : "bg-secondary"} > ${
-            completed ? "Completed" : "In progress"
-         } </span>
-               </span>
-               <button class="btn-secondary toggle-btn">Toggle</button>
-               <button class="btn-primary edit-btn">Edit</button>
-               <button class="btn-danger delete-btn">Delete</button>
-               </li>
-               `;
-         list.innerHTML += newItem;
+         // const newItem = `
+         //                <li data-taskId='${data.body.id}'>
+         //       <span>
+         //          <label>${title}</label>
+         //          <span class= ${completed ? "bg-success" : "bg-secondary"} > ${
+         //    completed ? "Completed" : "In progress"
+         // } </span>
+         //       </span>
+         //       <button class="btn-secondary toggle-btn">Toggle</button>
+         //       <button class="btn-primary edit-btn">Edit</button>
+         //       <button class="btn-danger delete-btn">Delete</button>
+         //       </li>
+         //       `;
+         // list.innerHTML += newItem;
+         if (totalTasks % limit){
+            currentPage = totalPages;
+         } else{
+            currentPage = totalPages +1;
+         }
+         loadTasks();
          input.value = "";
       } else {
          alert(data.message);
