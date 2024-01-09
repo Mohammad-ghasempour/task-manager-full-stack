@@ -26,6 +26,18 @@
                </div>
             </form>
          </div>
+         <div class="filtered">
+            <label>Status:</label>
+
+            <input type="radio" name="all" value="" id="all" checked>
+            <label for="all">All</label>
+            
+            <input type="radio" name="completed" value="true" id="completed">
+            <label for="completed">Completed</label>
+
+            <input type="radio" name="in-progress" value="false" id="in-progress">
+            <label for="in-progress">In progress</label>
+         </div>
          <div class="taskslist">
             <h1 class="taskHeader">Tasks</h1>
             <div class="contentContainer">
@@ -33,6 +45,11 @@
                   
                </ul>
                <h2 class="d-hide">There are no tasks!</h2>
+            </div>
+            <div class="pagination d-hide" id="pagination">
+               <button id="prev-button">&leftarrow;</button>
+               <label id="page-label">Page 1 of 1</label>
+               <button id="next-button">&rightarrow;</button>
             </div>
          </div>
       </div>

@@ -3,13 +3,30 @@ const emptyTaskMessage = document.querySelector("h2");
 const addButton = document.getElementById("addButton");
 const input = document.getElementById("myInput");
 const checkbox = document.getElementById("my-checkbox");
+const allRadio = document.getElementById("all");
+const completedRadio = document.getElementById("completed");
+const inprogressRadio = document.getElementById("in-progress");
+const pagination = document.getElementById("pagination");
+const prevButton = document.getElementById("prev-button");
+const pageLabel = document.getElementById("page-label");
+const nextButton = document.getElementById("next-button");
 
-axios.defaults.baseURL = 'http://localhost:3000'
+axios.defaults.baseURL = "http://localhost:3000";
 
-document.addEventListener("DOMContentLoaded", async () => {
+const limit = 3;
+let currentPage = 1;
+let finished = undefined;
+let totalTasks, totalPages;
+
+document.addEventListener("DOMContentLoaded", () => {
+   loadTasks();
+});
+
+async function loadTasks() {
    try {
-      const { data } = await axios.get("/tasks");
-      console.log(data)
+      const { data } = await axios.get(
+         `/tasks?page=${currentPage}&limit=${limit}&finished=${finished}`
+      );
 
       if (data.success) {
          if (data.body.length) {
@@ -34,12 +51,41 @@ document.addEventListener("DOMContentLoaded", async () => {
          } else {
             emptyTaskMessage.classList.remove("d-hide");
          }
+
+         totalTasks = data.totalTasks;
+
+         if (totalTasks > limit) {
+            pagination.classList.remove("d-hide");
+            totalPages = Math.ceil(totalTasks / limit);
+            prevButton.disabled = nextButton.disabled = false;
+            prevButton.style.cursor = nextButton.style.cursor = "auto"
+            
+            if (currentPage === 1) {
+               prevButton.disabled = true;
+               prevButton.style.cursor = "not-allowed";
+            } else if (currentPage === totalPages) {
+               nextButton.disabled = true;
+               nextButton.style.cursor = "not-allowed";
+            }
+            pageLabel.innerText = `Page ${currentPage} of ${totalPages}`;
+         } else {
+            pagination.classList.add("d-hide");
+            totalPages = 1;
+         }
       } else {
          alert(data.message);
       }
    } catch (err) {
       console.log(err.response.data.message);
    }
+}
+nextButton.addEventListener("click", () => {
+   currentPage++;
+   loadTasks();
+});
+prevButton.addEventListener("click", () => {
+   currentPage--;
+   loadTasks();
 });
 
 list.addEventListener("click", async (event) => {
@@ -91,7 +137,7 @@ list.addEventListener("click", async (event) => {
       const newTitle = prompt("Please enter new task's title", currentTitle);
       if (newTitle && newTitle != currentTitle && newTitle.length >= 3) {
          try {
-            const {data} = await axios.put("/tasks/" + id, {
+            const { data } = await axios.put("/tasks/" + id, {
                title: newTitle,
                completed,
             });
@@ -118,7 +164,7 @@ list.addEventListener("click", async (event) => {
       const areYouSureQuestion = `Are you sure to delete ${currentTitle} from the list?`;
       if (confirm(areYouSureQuestion)) {
          try {
-            const {data} = await axios.delete("/tasks/" + id);
+            const { data } = await axios.delete("/tasks/" + id);
             if (data.success) {
                target.parentElement.remove();
             } else {
