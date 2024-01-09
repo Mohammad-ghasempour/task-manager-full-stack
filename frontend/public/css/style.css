@@ -99,6 +99,11 @@ button:hover {
     margin-bottom: 2px;
     }
 
+.filtered input{
+       margin-right: -15px;
+  
+}
+
 .pagination{
     display: flex;
     justify-content: center;
